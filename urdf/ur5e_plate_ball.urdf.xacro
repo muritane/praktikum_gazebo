@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<robot name="ur5e"
+       xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <xacro:include filename="$(find ur_e_description)/urdf/ur5e_joint_limited_robot.urdf.xacro" />
+
+  <xacro:property name="plate_length" value="0.5"/>
+  <xacro:property name="plate_width" value="0.5"/>
+  <xacro:property name="plate_thickness" value="0.01"/>
+  <xacro:property name="ball_radius" value="0.02"/>
+
+  <xacro:include filename="$(find praktikum_gazebo)/urdf/common.xacro" />
+  <xacro:include filename="$(find praktikum_gazebo)/urdf/plate.urdf.xacro" />
+  <xacro:plate parent="tool0" length="${plate_length}"
+               width="${plate_width}" thickness="${plate_thickness}">
+    <origin xyz="0 0 0" rpy="0 0 0" />
+  </xacro:plate>
+
+  <xacro:include filename="$(find praktikum_gazebo)/urdf/ball.urdf.xacro" />
+  <xacro:ball parent="world" radius="${ball_radius}">
+    <origin xyz="0.1 0.1 1.1" rpy="0 0 0" />
+  </xacro:ball>
+
+  <xacro:include filename="$(find praktikum_gazebo)/urdf/camera.urdf.xacro" />
+  <xacro:camera_sensor parent="plate_link">
+    <origin xyz="0 0 0.4" rpy="0 1.57 0" />
+  </xacro:camera_sensor>
+</robot>

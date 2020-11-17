@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:macro name="plate" params="parent length width thickness *origin">
+
+    <link name="plate_link">
+      <visual>
+        <geometry>
+          <box size="${length} ${width} ${thickness}"/>
+        </geometry>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <material name="white">
+          <color rgba="1.0 1.0 1.0 1.0"/>
+        </material>
+      </visual>
+      <collision>
+        <geometry>
+          <box size="${length} ${width} ${thickness}"/>
+        </geometry>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+      </collision>
+      <xacro:default_inertial mass="0.1"/>
+    </link>
+
+    <joint name="plate_joint" type="fixed">
+      <parent link="${parent}" />
+      <child link = "plate_link" />
+      <xacro:insert_block name="origin" />
+    </joint>
+
+    <gazebo reference="plate_link">
+      <material>Gazebo/White</material>
+      <selfCollide>True</selfCollide>
+    </gazebo>
+
+  </xacro:macro>
+</robot>
