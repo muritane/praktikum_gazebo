@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<launch>
+  <arg name="joint_names" default="['shoulder_pan_joint', 'shoulder_lift_joint', 'elbow_joint', 'wrist_1_joint', 'wrist_2_joint', 'wrist_3_joint']" />
+  <arg name="move_to_standby_joint_positions" default="[0.0, -1.0, -1.3, 0.75, 1.6, 0.0]" />
+  <arg name="follow_joint_trajectory_param" default="/ur5e/arm_controller/follow_joint_trajectory" />
+  <arg name="auto_ball_homing" default="True" />
+
+  <node name="homing_position" pkg="praktikum_gazebo" type="homing_position.py" output="screen">
+    <rosparam param="joint_names" subst_value="True">$(arg joint_names)</rosparam>
+    <rosparam param="move_to_standby_joint_positions" subst_value="True">$(arg move_to_standby_joint_positions)</rosparam>
+    <param name="follow_joint_trajectory_param" value="$(arg follow_joint_trajectory_param)" />
+    <param name="auto_ball_homing" value="$(arg auto_ball_homing)" />
+  </node>
+</launch>
